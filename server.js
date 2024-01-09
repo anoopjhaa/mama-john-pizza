@@ -4,6 +4,7 @@ const Pizza = require('./models/pizzaModel')
 
 const app = express();
 const db = require("./db.js")
+require("dotenv").config();
 app.use(express.json());
 const path = require('path')
 

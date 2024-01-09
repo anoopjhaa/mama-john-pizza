@@ -1,7 +1,8 @@
 const mongoose = require('mongoose')
+require("dotenv").config();
 
 var mongoURL =
-  "mongodb+srv://anoopjhaa:anoopjhaa@todo.e91f1.mongodb.net/mern-pizza?retryWrites=true&w=majority";
+  process.env.MONGO_URL || 'mongodb://localhost:27017/pizza';
 
 mongoose.connect(mongoURL, { useUnifiedTopology: true, useNewUrlParser: true })
 
