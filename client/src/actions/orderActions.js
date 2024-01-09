@@ -1,11 +1,16 @@
-import axios from 'axios'
+import instance from 'instance'
+
+const instance = axios.create({
+  baseURL: "https://mama-john.onrender.com",
+});
+
 export const placeOrder = (token, subtotal) => async (dispatch, getState) => {
   dispatch({ type: 'PLACE_ORDER_REQUEST' })
   const currentUser = getState().loginUserReducer.currentUser
   const cartItems = getState().cartReducer.cartItems
 
   try {
-    const response = await axios.post('/api/orders/placeorder', {
+    const response = await instance.post('/api/orders/placeorder', {
       token,
       subtotal,
       currentUser,
@@ -24,7 +29,7 @@ export const getUserOrders = () => async (dispatch, getState) => {
   dispatch({ type: 'GET_USER_ORDERS_REQUEST' })
 
   try {
-    const response = await axios.post('/api/orders/getuserorders', {
+    const response = await instance.post('/api/orders/getuserorders', {
       userid: currentUser._id,
     })
 
@@ -41,7 +46,7 @@ export const getAllOrders = () => async (dispatch, getState) => {
   dispatch({ type: 'GET_ALLORDERS_REQUEST' })
 
   try {
-    const response = await axios.get('/api/orders/getallorders')
+    const response = await instance.get('/api/orders/getallorders')
 
     console.log(response)
 
@@ -53,10 +58,10 @@ export const getAllOrders = () => async (dispatch, getState) => {
 
 export const deliverOrder = (orderid) => async (dispatch) => {
   try {
-    const response = await axios.post('/api/orders/deliverorder', { orderid })
+    const response = await instance.post('/api/orders/deliverorder', { orderid })
     console.log(response)
     alert('Order Delivered')
-    const orders = await axios.get('/api/orders/getallorders')
+    const orders = await instance.get('/api/orders/getallorders')
     dispatch({ type: 'GET_ALLORDERS_SUCCESS', payload: orders.data })
   } catch (error) {
     console.log(error)

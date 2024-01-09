@@ -1,11 +1,12 @@
 const express = require("express");
-
+const cors = require("cors");
 const Pizza = require('./models/pizzaModel')
 
 const app = express();
 const db = require("./db.js")
 require("dotenv").config();
 app.use(express.json());
+app.use(cors());
 const path = require('path')
 
 const pizzasRoute = require('./routes/pizzasRoute')
